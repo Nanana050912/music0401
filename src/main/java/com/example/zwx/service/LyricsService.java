@@ -2,12 +2,17 @@ package com.example.zwx.service;
 
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class LyricsService {
@@ -34,6 +39,24 @@ public class LyricsService {
     }
 
     private List<LyricLine> parseLrc(String path) {
-        // 解析LRC文件实现
+        List<LyricLine> lines = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line;
+            Pattern pattern = Pattern.compile("\\[(\\d{2}):(\\d{2})\\.(\\d{2})\\](.*)");
+            while ((line = br.readLine()) != null) {
+                Matcher matcher = pattern.matcher(line);
+                if (matcher.matches()) {
+                    int minutes = Integer.parseInt(matcher.group(1));
+                    int seconds = Integer.parseInt(matcher.group(2));
+                    int millis = Integer.parseInt(matcher.group(3));
+                    long timestamp = (minutes * 60 + seconds) * 1000 + millis * 10;
+                    String content = matcher.group(4);
+                    lines.add(new LyricLine(timestamp, content));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
     }
 }

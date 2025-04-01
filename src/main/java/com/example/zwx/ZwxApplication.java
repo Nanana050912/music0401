@@ -8,13 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.yaml.snakeyaml.scanner.Scanner;
+
+import java.util.Scanner;
 
 @SpringBootApplication
 public class ZwxApplication implements CommandLineRunner {
-    @Autowired private UserService userService;
-    @Autowired private PlaylistService playlistService;
-    @Autowired private PlaybackService playbackService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PlaylistService playlistService;
+    @Autowired
+    private PlaybackService playbackService;
 
     public static void main(String[] args) {
         SpringApplication.run(ZwxApplication.class, args);
@@ -50,6 +54,8 @@ public class ZwxApplication implements CommandLineRunner {
                 case "6":
                     System.out.println("退出播放器");
                     return;
+                default:
+                    System.out.println("无效的选择，请重新输入。");
             }
         }
     }
