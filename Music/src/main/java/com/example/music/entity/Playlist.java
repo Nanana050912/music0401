@@ -1,28 +1,23 @@
-package com.example.music.entiy;
+package com.example.music.entity;
 
-import com.example.music.strategy.PlayStrategy;
-
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-// 实现 Serializable 接口
 public class Playlist implements Serializable {
-    @Serial
     private static final long serialVersionUID = 1L;
-    private String name;
-    private List<Song> songs;
-    private PlayStrategy playStrategy;
-    private int currentIndex;
 
-    public Playlist(String name, List<Song> songs, PlayStrategy playStrategy) {
+    private String name;            // 播放列表名称
+    private List<Song> songs;       // 歌曲列表
+    private boolean shuffleMode;    // 是否随机播放
+    private int currentIndex;       // 当前播放索引
+
+    public Playlist(String name, List<Song> songs) {
         this.name = name;
         this.songs = songs;
-        this.playStrategy = playStrategy;
-        this.currentIndex = 0;
+        this.shuffleMode = false;   // 默认为顺序播放
+        this.currentIndex = 0;      // 默认从第一首开始
     }
 
-    // Getters 和 Setters 方法
     public String getName() {
         return name;
     }
@@ -39,12 +34,12 @@ public class Playlist implements Serializable {
         this.songs = songs;
     }
 
-    public PlayStrategy getPlayStrategy() {
-        return playStrategy;
+    public boolean isShuffleMode() {
+        return shuffleMode;
     }
 
-    public void setPlayStrategy(PlayStrategy playStrategy) {
-        this.playStrategy = playStrategy;
+    public void setShuffleMode(boolean shuffleMode) {
+        this.shuffleMode = shuffleMode;
     }
 
     public int getCurrentIndex() {
@@ -55,7 +50,13 @@ public class Playlist implements Serializable {
         this.currentIndex = currentIndex;
     }
 
+    /**
+     * 获取当前播放的歌曲
+     */
     public Song getCurrentSong() {
+        if (songs.isEmpty()) {
+            return null;
+        }
         return songs.get(currentIndex);
     }
 }

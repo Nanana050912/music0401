@@ -1,4 +1,4 @@
-package com.example.music.service;
+package com.example.music.entity;
 
 public class LyricLine {
     private long timestamp;
@@ -8,6 +8,7 @@ public class LyricLine {
         this.timestamp = timestamp;
         this.content = content;
     }
+
 
     public long getTimestamp() {
         return timestamp;

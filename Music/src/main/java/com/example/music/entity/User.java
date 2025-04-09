@@ -1,14 +1,12 @@
-package com.example.music.entiy;
+package com.example.music.entity;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-// 实现 Serializable 接口
 public class User implements Serializable {
-    @Serial
     private static final long serialVersionUID = 1L;
+
     private String username;
     private List<Playlist> playlists;
 
@@ -17,6 +15,7 @@ public class User implements Serializable {
         this.playlists = new ArrayList<>();
     }
 
+    // Getters and Setters
     public String getUsername() {
         return username;
     }
@@ -33,12 +32,7 @@ public class User implements Serializable {
         this.playlists = playlists;
     }
 
-    public void createPlaylist(Playlist playlist) {
+    public void addPlaylist(Playlist playlist) {
         playlists.add(playlist);
-    }
-
-    public String sharePlaylist(Playlist playlist) {
-        // 简单模拟分享，返回一个分享链接
-        return "https://example.com/playlist/" + playlist.getName();
     }
 }

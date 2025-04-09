@@ -1,12 +1,14 @@
-package com.example.music.entiy;
+package com.example.music.entity;
 
 import java.io.Serializable;
 
-// 实现 Serializable 接口
+
 public class Song implements Serializable {
-    private String name;
-    private int duration;
-    private String lrcPath;
+    private static final long serialVersionUID = 1L;
+
+    private String name;        // 歌曲名称
+    private int duration;       // 歌曲时长（秒）
+    private String lrcPath;     // 歌词文件路径
 
     public Song(String name, int duration, String lrcPath) {
         this.name = name;
@@ -14,7 +16,7 @@ public class Song implements Serializable {
         this.lrcPath = lrcPath;
     }
 
-    // Getters 和 Setters 方法
+    // Getters and Setters
     public String getName() {
         return name;
     }
